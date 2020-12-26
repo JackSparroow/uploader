@@ -1,0 +1,41 @@
+{
+    "name": "codestacx/widget",
+    "description": ":This is our first codestacx package",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Muhammad Atif",
+            "email": "muhammadatif.pucit@gmail.com",
+            "homepage": "https://atifakram.netlify.com"
+        }
+    ],
+    "homepage": "https://github.com/codestacx/widget",
+    "keywords": ["Laravel", "Widget"],
+    "require": {
+        "illuminate/support": "~7|~8"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~9.0",
+        "orchestra/testbench": "~5|~6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Codestacx\\Widget\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Codestacx\\Widget\\Tests\\": "tests"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Codestacx\\Widget\\WidgetServiceProvider"
+            ],
+            "aliases": {
+                "Widget": "Codestacx\\Widget\\Facades\\Widget"
+            }
+        }
+    }
+}
