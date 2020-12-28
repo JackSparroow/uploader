@@ -21,6 +21,45 @@ abstract class WidgetAbstract   {
     /* extensions allowed to upload */
     protected $extensions = [];
 
+
+    private $width    =   null;
+    private $height   =   null;
+
+    /**
+     * @return null
+     */
+    protected function getWidth()
+    {
+        return $this->width;
+    }
+
+    /**
+     * @param null $width
+     */
+    protected function setWidth($width): void
+    {
+        $this->width = $width;
+    }
+
+    /**
+     * @return null
+     */
+    protected function getHeight()
+    {
+        return $this->height;
+    }
+
+    /**
+     * @param null $height
+     */
+    protected function setHeight($height): void
+    {
+        $this->height = $height;
+    }
+
+
+
+
     /**
      * @return null
      */
@@ -66,14 +105,16 @@ abstract class WidgetAbstract   {
      * Sanitize extensions
      */
 
-    public function sanitizeExtensions($extensions){
-        if(!is_array($extensions)){
-            return [$extensions];
+    protected function sanitizeExtensions(& $extensions){
+        foreach ($extensions as &$extension){
+            $extension = trim($extension,'.');
         }
-        return $extensions;
     }
 
-    protected function setOnly($extensions){
+    protected function setOnly($extensions) {
+
+        $this->sanitizeExtensions($extensions);
+
         $this->onlyExtensions  = $extensions;
         $this->IS_ONLY = true;
     }
@@ -137,14 +178,21 @@ abstract class WidgetAbstract   {
         }
         return true;
     }
-    abstract function where($dir = null):WidgetAbstract;
+
+
+    abstract protected function resizeImage($width,$height):WidgetAbstract;
+
+    abstract function to($dir = null):WidgetAbstract;
     abstract function addExtensions(...$extensions):void;
     abstract function removeExtensions(...$extensions):void;
     abstract function only(...$extension):WidgetAbstract;
     abstract function except(...$extensions):WidgetAbstract;
     abstract function appendExtensions(...$extensions):void;
-
+    abstract function getFileName($file):string;
     abstract function upload():array;
+    abstract function toSize($width,$height):WidgetAbstract;
+    abstract function round():WidgetAbstract;
+    abstract protected function processThumbnailAndRoundedImages($file):void;
 
 
 
